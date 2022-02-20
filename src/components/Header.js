@@ -15,7 +15,7 @@ function Header() {
 						<h4 className="header-title">Silicon Valley Code Camp</h4>
 					</div>
 					<div className={theme === "light" ? "" : "text-info"}>
-						Yo Waddup boy &nbsp;
+						Yo Waddup boy! Try the favorite &nbsp;
 						<span>
 							<a href="#">sign-out</a>
 						</span>
