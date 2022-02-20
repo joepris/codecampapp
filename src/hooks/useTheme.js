@@ -5,6 +5,11 @@ function useTheme(startingTheme = "light") {
 
 	function validateTheme(themeValue) {
 		if (themeValue === "dark") {
+			// adding my own lines of code to simulate a conflict
+			// pretending to call a function
+			((name) => {
+				console.log(`Hi ${name}`);
+			})('jun');
 			setTheme("dark");
 		} else {
 			setTheme("light");
