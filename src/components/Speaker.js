@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 function Session(props) {
 	const { title, room } = props;
 	return (
@@ -29,13 +31,57 @@ function SpeakerImage({ id, first, last }) {
 	);
 }
 
+function SpeakerFavorite({ favorite, onFavoriteToggle, id, first, last }) {
+	const [inTransition, setTransition] = useState(false);
+	function doneCallBack() {
+		setTransition(false);
+		console.log(
+			`In SpeakerFavorite:doneCallBack   ${new Date().getMilliseconds()}`
+		);
+	}
+
+	return (
+		<div className="action padB1">
+			<span
+				onClick={function () {
+					setTransition(true);
+					return onFavoriteToggle(doneCallBack);
+				}}
+			>
+				<i
+					className={
+						favorite === true ? "fa fa-star orange" : "fa fa-star-o orange"
+					}
+				/>{" "}
+				Favorite{" "}
+				{inTransition === true ? (
+					<div>
+						<span className="fas fa-circle-notch fa-spin"></span> What is that??
+						--{">   "}
+						<div className="speaker-img fas fa-spin">
+							<img
+								className="contain-fit"
+								src={`/images/speaker-${id}.jpg`}
+								width="20"
+								alt={`${first} ${last}`}
+							/>
+						</div>
+					</div>
+				) : null}
+			</span>
+		</div>
+	);
+}
+
 function SpeakerDemographics({
+	id,
 	first,
 	last,
 	bio,
 	company,
-	twitterhandle,
+	twitterHandle,
 	favorite,
+	onFavoriteToggle,
 }) {
 	return (
 		<div className="speaker-info">
@@ -44,6 +90,13 @@ function SpeakerDemographics({
 					{first} {last}
 				</h3>
 			</div>
+			<SpeakerFavorite
+				favorite={favorite}
+				onFavoriteToggle={onFavoriteToggle}
+				id={id}
+				first={first}
+				last={last}
+			/>
 			<div>
 				<p className="card-description">{bio}</p>
 				<div className="social d-flex flex-rown mt-4">
@@ -53,20 +106,20 @@ function SpeakerDemographics({
 					</div>
 					<div className="twitter">
 						<h5>Twitter</h5>
-						<h6>{twitterhandle}</h6>
+						<h6>{twitterHandle}</h6>
 					</div>
 				</div>
 			</div>
 		</div>
 	);
 }
-function Speaker({ speaker, showSession }) {
+function Speaker({ speaker, showSession, onFavoriteToggle }) {
 	const { id, first, last, sessions } = speaker;
 	return (
 		<div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-sm-12 col-xs-12">
 			<div className="card card-height p-4 mt-4">
 				<SpeakerImage id={id} first={first} last={last} />
-				<SpeakerDemographics {...speaker} />
+				<SpeakerDemographics {...speaker} onFavoriteToggle={onFavoriteToggle} />
 			</div>
 			{showSession === true ? <Sessions sessions={sessions} /> : null}
 		</div>
