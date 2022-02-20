@@ -9,8 +9,9 @@ function useTheme(startingTheme = "light") {
 			// pretending to call a function
 			((name) => {
 				console.log(`Hi ${name}`);
-			})('jun');
-			setTheme("dark");
+			})("jun");
+			const { theme } = "dark";
+			setTheme({ theme });
 		} else {
 			setTheme("light");
 		}
