@@ -10,8 +10,7 @@ function useTheme(startingTheme = "light") {
 			((name) => {
 				console.log(`Hi ${name}`);
 			})("jun");
-			const { theme } = "dark";
-			setTheme({ theme });
+			setTheme("dark");
 		} else {
 			setTheme("light");
 		}

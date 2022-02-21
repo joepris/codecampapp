@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { themeContext } from "../contexts/ThemeContext";
+import { useContext } from "react";
+import { SpeakerFilterContext } from "../contexts/SpeakerFilterContext";
 
 function Session(props) {
 	const { title, room } = props;
@@ -83,6 +86,7 @@ function SpeakerDemographics({
 	favorite,
 	onFavoriteToggle,
 }) {
+	const { Theme } = useContext(themeContext);
 	return (
 		<div className="speaker-info">
 			<div className="d-flex justify-content-between mb-3">
@@ -97,7 +101,7 @@ function SpeakerDemographics({
 				first={first}
 				last={last}
 			/>
-			<div>
+			<div className={Theme === "light" ? "" : "text-info"}>
 				<p className="card-description">{bio}</p>
 				<div className="social d-flex flex-rown mt-4">
 					<div className="company">
@@ -113,15 +117,19 @@ function SpeakerDemographics({
 		</div>
 	);
 }
-function Speaker({ speaker, showSession, onFavoriteToggle }) {
+function Speaker({ speaker, onFavoriteToggle }) {
 	const { id, first, last, sessions } = speaker;
+	const { showSessions } = useContext(SpeakerFilterContext);
+	// const { Theme } = useContext(themeContext);
 	return (
 		<div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-sm-12 col-xs-12">
 			<div className="card card-height p-4 mt-4">
+				{/* <div className={Theme === "light" ? "" : "text-info"}> */}
 				<SpeakerImage id={id} first={first} last={last} />
 				<SpeakerDemographics {...speaker} onFavoriteToggle={onFavoriteToggle} />
+				{/* </div> */}
 			</div>
-			{showSession === true ? <Sessions sessions={sessions} /> : null}
+			{showSessions === true ? <Sessions sessions={sessions} /> : null}
 		</div>
 	);
 }

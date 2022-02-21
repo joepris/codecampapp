@@ -1,8 +1,10 @@
 import { themeContext } from "../contexts/ThemeContext";
 import { useContext } from "react";
+import { SpeakerFilterContext } from "../contexts/SpeakerFilterContext";
 
-function SpeakersToolbar({ showSession, setshowSessions }) {
-	const { theme, setTheme } = useContext(themeContext);
+function SpeakersToolbar() {
+	const { Theme, setTheme } = useContext(themeContext);
+	const { showSessions, setshowSessions } = useContext(SpeakerFilterContext);
 
 	return (
 		<section className="toolbar dark-theme-header">
@@ -14,7 +16,7 @@ function SpeakersToolbar({ showSession, setshowSessions }) {
 							<label className="fav">
 								<input
 									type="checkbox"
-									checked={showSession}
+									checked={showSessions}
 									onChange={(event) => {
 										setshowSessions(event.target.checked);
 									}}
@@ -27,13 +29,23 @@ function SpeakersToolbar({ showSession, setshowSessions }) {
 							<label className="dropdown">
 								<select
 									className="form-control theme"
-									value={theme}
+									value={Theme}
 									onChange={(event) => {
 										setTheme(event.target.value);
 									}}
 								>
-									<option value="light">Light</option>
-									<option value="dark">Dark</option>
+									<option
+										className={Theme === "light" ? "" : "text-info"}
+										value="light"
+									>
+										Light
+									</option>
+									<option
+										className={Theme === "light" ? "" : "text-info"}
+										value="dark"
+									>
+										Dark
+									</option>
 								</select>
 							</label>
 						</li>

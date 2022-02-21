@@ -2,7 +2,7 @@ import { themeContext } from "../contexts/ThemeContext";
 import { useContext } from "react";
 
 function Header() {
-	const { theme } = useContext(themeContext);
+	const { Theme } = useContext(themeContext);
 
 	return (
 		<div className="padT4 padB4">
@@ -11,10 +11,10 @@ function Header() {
 					<div>
 						<img alt="SVCC Home Page" src="/images/SVCCLogo.png" />
 					</div>
-					<div className="light">
+					<div className={Theme === "light" ? "" : "text-info"}>
 						<h4 className="header-title">Silicon Valley Code Camp</h4>
 					</div>
-					<div className={theme === "light" ? "" : "text-info"}>
+					<div className={Theme === "light" ? "" : "text-info"}>
 						Yo Waddup boy! Try the favorite &nbsp;
 						<span>
 							<a href="#">sign-out</a>
