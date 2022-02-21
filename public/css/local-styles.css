@@ -788,7 +788,7 @@ input:checked + .switch:before {
 }
 
 .dark .dark-theme-header {
-    background-color: #212529 !important;
+    background-color: #343a40 !important;
 }
 
 .dark .dark-theme-header li {
@@ -799,8 +799,16 @@ input:checked + .switch:before {
     color: white !important;
 }
 
+.dark .session {
+    background-color: #343a40;
+}
+
+.dark .session strong{
+    color: white;
+}
+
 .dark .card {
-    background-color: #212529;
+    background-color: #343a40;
 }
 
 .dark .card .speaker-info span{
