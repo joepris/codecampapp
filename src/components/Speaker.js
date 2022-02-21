@@ -4,9 +4,10 @@ import { useContext } from "react";
 import { SpeakerFilterContext } from "../contexts/SpeakerFilterContext";
 
 function Session({ title, room }) {
+	console.log(room);
 	return (
 		<span className="session w-100">
-			{title} <strong>Room: {room}</strong>
+			{title} <strong>Room: {room.name}</strong>
 		</span>
 	);
 }
@@ -28,7 +29,7 @@ function Sessions({ sessions }) {
 // 				.map(function (session) {
 // 					return (
 // 						<div className="session w-100" key={session.id}>
-// 							<Session {...sessions} />
+// 							<Sessions {...sessions} />
 // 						</div>
 // 					);
 // 				})}
@@ -147,7 +148,7 @@ function Speaker({ speaker, onFavoriteToggle }) {
 				<SpeakerDemographics {...speaker} onFavoriteToggle={onFavoriteToggle} />
 				{/* </div> */}
 			</div>
-			{showSessions === true ? <Session sessions={sessions} /> : null}
+			{showSessions === true ? <Sessions sessions={sessions} /> : null}
 		</div>
 	);
 }

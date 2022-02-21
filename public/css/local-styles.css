@@ -801,6 +801,7 @@ input:checked + .switch:before {
 
 .dark .session {
     background-color: #343a40;
+    color: #ccc;
 }
 
 .dark .session strong{
