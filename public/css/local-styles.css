@@ -788,11 +788,35 @@ input:checked + .switch:before {
 }
 
 .dark .dark-theme-header {
-    background-color: #fafafa !important;
+    background-color: #212529 !important;
+}
+
+.dark .dark-theme-header li {
+    color: #ffffff !important;
 }
 
 .dark .dark-theme-text {
     color: white !important;
+}
+
+.dark .card {
+    background-color: #212529;
+}
+
+.dark .card .speaker-info span{
+    color: #17a2b8
+}
+
+.dark .card h3 {
+    color: #fff;
+}
+
+.dark .card h6 {
+    color: #ccc
+}
+
+.dark .speaker-info .card-description {
+    color: #ccc;
 }
 
 .fav-card {
