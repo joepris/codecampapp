@@ -11,31 +11,25 @@ function Session({ title, room }) {
 		</span>
 	);
 }
+
 function Sessions({ sessions }) {
+	const { eventYear } = useContext(SpeakerFilterContext);
 	return (
 		<div className="sessionBox card h-250">
-			<Session {...sessions[0]} />
+			{sessions
+				.filter(function (session) {
+					return session.eventYear === eventYear;
+				})
+				.map(function (session) {
+					return (
+						<div className="session w-100" key={session.id}>
+							<Session {...sessions[0]} />
+						</div>
+					);
+				})}
 		</div>
 	);
 }
-// function Sessions({ sessions }) {
-// 	const { eventYear } = useContext(SpeakerFilterContext);
-// 	return (
-// 		<div className="sessionBox card h-250">
-// 			{sessions
-// 				.filter(function (session) {
-// 					return session.eventYear === eventYear;
-// 				})
-// 				.map(function (session) {
-// 					return (
-// 						<div className="session w-100" key={session.id}>
-// 							<Sessions {...sessions} />
-// 						</div>
-// 					);
-// 				})}
-// 		</div>
-// 	);
-// }
 
 function SpeakerImage({ id, first, last }) {
 	return (
@@ -143,10 +137,8 @@ function Speaker({ speaker, onFavoriteToggle }) {
 			className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-sm-12 col-xs-12"
 		>
 			<div className="card card-height p-4 mt-4">
-				{/* <div className={Theme === "light" ? "" : "text-info"}> */}
 				<SpeakerImage id={id} first={first} last={last} />
 				<SpeakerDemographics {...speaker} onFavoriteToggle={onFavoriteToggle} />
-				{/* </div> */}
 			</div>
 			{showSessions === true ? <Sessions sessions={sessions} /> : null}
 		</div>
