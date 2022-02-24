@@ -41,11 +41,11 @@ function useRequestDelay(delayTime = 1000, initialData = []) {
 	// 	});
 	// 	setSpeakerData(speakerDataNew);
 	// }
-	function updateRecord(recordUpdated, doneCallBack) {
+	function deleteRecord(recordUpdated, doneCallBack) {
 		console.log();
 		const originalRecord = [...data];
-		const newRecord = data.map(function (rec) {
-			return rec.id === recordUpdated.id ? recordUpdated : rec;
+		const newRecord = data.filter(function (rec) {
+			return rec.id != record.id;
 		});
 
 		async function delayFunction() {
@@ -65,12 +65,62 @@ function useRequestDelay(delayTime = 1000, initialData = []) {
 		}
 		delayFunction();
 	}
+	function insertRecord(recordUpdated, doneCallBack) {
+		console.log();
+		const originalRecord = [...data];
+		const newRecord = [record, ...data];
+
+		async function delayFunction() {
+			try {
+				setData(newRecord);
+				await delay(delayTime);
+				if (doneCallBack) {
+					doneCallBack();
+				}
+			} catch (error) {
+				console.log("error thrown inside delayFunction", error);
+				if (doneCallBack) {
+					doneCallBack();
+				}
+				setData(originalRecord);
+			}
+		}
+		delayFunction();
+	}
 	return {
 		data,
 		requestStatus,
 		error,
-		updateRecord,
+		// updateRecord,
+		insertRecord,
+		deleteRecord,
 	};
 }
+// async function delayFunction() {
+// 	try {
+// 		await delay(delayTime);
+// 				if (doneCallBack) {
+// 					doneCallBack();
+// 				} }
+// 				setData(newRecord);
+// 			 } catch (error) {
+// 				console.log("error thrown inside delayFunction", error);
+// 				if (doneCallBack) {
+// 					doneCallBack();
+// 				}
+// 				setData(originalRecord);
+// 			}
+// 		}
+// 		delayFunction();
+// 	}
+// 	return {
+// 		data,
+// 		requestStatus,
+// 		error,
+// 		updateRecord,
+// 		insertRecord,
+// 		deleteRecord,
+// 	};
+// }
 
 export default useRequestDelay;
