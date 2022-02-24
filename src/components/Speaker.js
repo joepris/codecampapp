@@ -3,6 +3,7 @@ import { themeContext } from "../contexts/ThemeContext";
 import { useContext } from "react";
 import { SpeakerFilterContext } from "../contexts/SpeakerFilterContext";
 import { SpeakerProvider, SpeakerContext } from "../contexts/SpeakerContext";
+import SpeakerDelete from "./SpeakerDelete";
 
 function Session({ title, room }) {
 	console.log(room);
@@ -13,8 +14,9 @@ function Session({ title, room }) {
 	);
 }
 
-function Sessions({speaker}) {
+function Sessions() {
 	const { eventYear } = useContext(SpeakerFilterContext);
+	const {speaker} = useContext(SpeakerContext);
 	const sessions = speaker.sessions;
 	return (
 		<div className="sessionBox card h-250">
@@ -67,8 +69,10 @@ function SpeakerImage() {
 	);
 }
 
-function SpeakerFavorite({speaker, updateRecord}) {
+function SpeakerFavorite() {
+	const {speaker, updateRecord} = useContext(SpeakerContext);
 	const [inTransition, setTransition] = useState(false);
+	const {id, first, last} = speaker;
 	function doneCallBack() {
 		setTransition(false);
 		console.log(
@@ -92,8 +96,7 @@ function SpeakerFavorite({speaker, updateRecord}) {
 				<i
 					className={
 						speaker.favorite === true
-							? "fa fa-star orange"
-							: "fa fa-star-o orange"
+							? "fa fa-star orange" : "fa fa-star-o orange"
 					}
 				/>{" "}
 				Favorite{" "}
@@ -162,6 +165,7 @@ function Speaker({ speaker, updateRecord, insertRecord, deleteRecord }) {
 					<SpeakerDemographics speaker={speaker} updateRecord={updateRecord}/>
 				</div>
 				{showSessions === true ? <Sessions speaker={speaker} /> : null}
+				<SpeakerDelete />
 			</div>
 		</SpeakerProvider>
 	);

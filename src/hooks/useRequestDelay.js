@@ -41,20 +41,45 @@ function useRequestDelay(delayTime = 1000, initialData = []) {
 	// 	});
 	// 	setSpeakerData(speakerDataNew);
 	// }
-	function deleteRecord(recordUpdated, doneCallBack) {
+	function updateRecord(record, doneCallBack) {
 		console.log();
 		const originalRecord = [...data];
-		const newRecord = data.filter(function (rec) {
-			return rec.id != record.id;
+		const newRecord = data.map(function(rec) {
+			return rec.id === record.id ? record : rec;
+			});
+
+		async function delayFunction() {
+			try {
+				setData(newRecord);
+				await delay(delayTime);
+				if (doneCallBack) {
+					doneCallBack();
+				}
+			} catch (error) {
+				console.log("error thrown inside delayFunction", error);
+				if (doneCallBack) {
+					doneCallBack();
+				}
+				setData(originalRecord);
+			}
+		}
+		delayFunction();
+	}
+	
+	function deleteRecord(record, doneCallBack) {
+		console.log();
+		const originalRecord = [...data];
+		const newRecord = data.filter(function(rec) {
+		return rec.id !== record.id ? record : rec;
 		});
 
 		async function delayFunction() {
 			try {
+				setData(newRecord);
 				await delay(delayTime);
 				if (doneCallBack) {
 					doneCallBack();
 				}
-				setData(newRecord);
 			} catch (error) {
 				console.log("error thrown inside delayFunction", error);
 				if (doneCallBack) {
@@ -65,7 +90,8 @@ function useRequestDelay(delayTime = 1000, initialData = []) {
 		}
 		delayFunction();
 	}
-	function insertRecord(recordUpdated, doneCallBack) {
+
+	function insertRecord(record, doneCallBack) {
 		console.log();
 		const originalRecord = [...data];
 		const newRecord = [record, ...data];
@@ -87,28 +113,7 @@ function useRequestDelay(delayTime = 1000, initialData = []) {
 		}
 		delayFunction();
 	}
-	function updateRecord(recordUpdated, doneCallBack) {
-		console.log();
-		const originalRecord = [...data];
-		const newRecord = [record, ...data];
 
-		async function delayFunction() {
-			try {
-				setData(newRecord);
-				await delay(delayTime);
-				if (doneCallBack) {
-					doneCallBack();
-				}
-			} catch (error) {
-				console.log("error thrown inside delayFunction", error);
-				if (doneCallBack) {
-					doneCallBack();
-				}
-				setData(originalRecord);
-			}
-		}
-		delayFunction();
-	}
 	return {
 		data,
 		requestStatus,
