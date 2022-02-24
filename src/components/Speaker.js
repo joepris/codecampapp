@@ -2,7 +2,7 @@ import { useState } from "react";
 import { themeContext } from "../contexts/ThemeContext";
 import { useContext } from "react";
 import { SpeakerFilterContext } from "../contexts/SpeakerFilterContext";
-import { speakerProvider, speakerContext } from "../contexts/SpeakerContext";
+import { SpeakerProvider, SpeakerContext } from "../contexts/SpeakerContext";
 
 function Session({ title, room }) {
 	console.log(room);
@@ -13,9 +13,8 @@ function Session({ title, room }) {
 	);
 }
 
-function Sessions() {
+function Sessions({speaker}) {
 	const { eventYear } = useContext(SpeakerFilterContext);
-	const { speaker } = useContext(speakerContext);
 	const sessions = speaker.sessions;
 	return (
 		<div className="sessionBox card h-250">
@@ -34,8 +33,9 @@ function Sessions() {
 	);
 }
 
-function SpeakerImage(speaker) {
-	const { speaker: {id, first, last}} = useContext (speakerContext);
+function SpeakerImage({speaker}) {
+	// const { speaker: {id, first, last}} = useContext (speakerContext);
+	const { id, first, last } = speaker;
 	return (
 		<div className="speaker-img d-flex flex-row justify-content-center align-items-center h-300">
 			<img
@@ -48,8 +48,7 @@ function SpeakerImage(speaker) {
 	);
 }
 
-function SpeakerFavorite() {
-	const { speaker, updateRecord } = useContext(speakerContext);
+function SpeakerFavorite({speaker, updateRecord}) {
 	const [inTransition, setTransition] = useState(false);
 	function doneCallBack() {
 		setTransition(false);
@@ -98,8 +97,7 @@ function SpeakerFavorite() {
 	);
 }
 
-function SpeakerDemographics() {
-	const { speaker } = useContext(speakerContext);
+function SpeakerDemographics({speaker, updateRecord}) {
 	const { id, first, last, bio, company, twitterHandle, favorite } = speaker;
 	return (
 		<div className="speaker-info">
@@ -108,7 +106,7 @@ function SpeakerDemographics() {
 					{first} {last}
 				</h3>
 			</div>
-			<SpeakerFavorite />
+			<SpeakerFavorite speaker={speaker} updateRecord={updateRecord}/>
 			<div>
 				<p className="card-description">{bio}</p>
 				<div className="social d-flex flex-rown mt-4">
@@ -130,7 +128,7 @@ function Speaker({ speaker, updateRecord, insertRecord, deleteRecord }) {
 	const { showSessions } = useContext(SpeakerFilterContext);
 	// const { Theme } = useContext(themeContext);
 	return (
-		<speakerProvider
+		<SpeakerProvider
 			speaker={speaker}
 			updateRecord={updateRecord}
 			insertRecord={insertRecord}
@@ -142,11 +140,11 @@ function Speaker({ speaker, updateRecord, insertRecord, deleteRecord }) {
 			>
 				<div className="card card-height p-4 mt-4">
 					<SpeakerImage speaker={speaker} />
-					<SpeakerDemographics />
+					<SpeakerDemographics speaker={speaker} updateRecord={updateRecord}/>
 				</div>
-				{showSessions === true ? <Sessions /> : null}
+				{showSessions === true ? <Sessions speaker={speaker} /> : null}
 			</div>
-		</speakerProvider>
+		</SpeakerProvider>
 	);
 }
 

@@ -87,11 +87,33 @@ function useRequestDelay(delayTime = 1000, initialData = []) {
 		}
 		delayFunction();
 	}
+	function updateRecord(recordUpdated, doneCallBack) {
+		console.log();
+		const originalRecord = [...data];
+		const newRecord = [record, ...data];
+
+		async function delayFunction() {
+			try {
+				setData(newRecord);
+				await delay(delayTime);
+				if (doneCallBack) {
+					doneCallBack();
+				}
+			} catch (error) {
+				console.log("error thrown inside delayFunction", error);
+				if (doneCallBack) {
+					doneCallBack();
+				}
+				setData(originalRecord);
+			}
+		}
+		delayFunction();
+	}
 	return {
 		data,
 		requestStatus,
 		error,
-		// updateRecord,
+		updateRecord,
 		insertRecord,
 		deleteRecord,
 	};

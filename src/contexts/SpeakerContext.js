@@ -1,8 +1,8 @@
 import {createContext} from "react";
 
-const speakerContext = createContext();
+const SpeakerContext = createContext();
 
-function speakerProvider({
+function SpeakerProvider({
 	children,
 	speaker,
 	updateRecord,
@@ -10,12 +10,12 @@ function speakerProvider({
 	deleteRecord
 }) {
 	return (
-		<speakerContext.Provider
+		<SpeakerContext.Provider
 			value={speaker, updateRecord, insertRecord, deleteRecord}
 		>
 			{children}
-		</speakerContext.Provider>
+		</SpeakerContext.Provider>
 	);
 }
 
-export {speakerContext, speakerProvider};
+export {SpeakerContext, SpeakerProvider};
