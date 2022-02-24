@@ -11,6 +11,8 @@ function SpeakersList() {
 		requestStatus,
 		error,
 		updateRecord,
+		insertRecord,
+		deleteRecord,
 	} = useRequestDelay(2000, data);
 
 	const { showSessions, searchQuery, eventYear } =
@@ -51,17 +53,19 @@ function SpeakersList() {
 								<Speaker
 									key={speaker.id}
 									speaker={speaker}
-									showSessions={showSessions}
-									// updateRecord = {updateRecord}
-									onFavoriteToggle={(doneCallBack) => {
-										updateRecord(
-											{
-												...speaker,
-												favorite: !speaker.favorite,
-											},
-											doneCallBack
-										);
-									}}
+									// showSessions={showSessions}
+									updateRecord={updateRecord}
+									insertRecord={insertRecord}
+									deleteRecord={deleteRecord}
+									// onFavoriteToggle={(doneCallBack) => {
+									// 	updateRecord(
+									// 		{
+									// 			...speaker,
+									// 			favorite: !speaker.favorite,
+									// 		},
+									// 		doneCallBack
+									// 	);
+									// }}
 								/>
 							);
 						})}

@@ -1,14 +1,21 @@
-// import { createContext } from "react";
+import {createContext} from "react";
 
-// const speakerContext = createContext();
+const SpeakerContext = createContext();
 
-// function speakerProvider({children, speaker, updateRecord}){
-//     return (
-//         <speakerContext.Provider
-//         value={speaker, updateRecord}>
-//             {children}
-//         </speakerContext.Provider>
-//     )
-// }
+function SpeakerProvider({
+	children,
+	speaker,
+	updateRecord,
+	insertRecord,
+	deleteRecord
+}) {
+	return (
+		<SpeakerContext.Provider
+			value={{speaker, updateRecord, insertRecord, deleteRecord}}
+		>
+			{children}
+		</SpeakerContext.Provider>
+	);
+}
 
-// export {speakerContext, speakerProvider};
+export {SpeakerContext, SpeakerProvider};
