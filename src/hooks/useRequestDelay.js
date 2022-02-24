@@ -70,7 +70,7 @@ function useRequestDelay(delayTime = 1000, initialData = []) {
 		console.log();
 		const originalRecord = [...data];
 		const newRecord = data.filter(function(rec) {
-		return rec.id !== record.id ? record : rec;
+		return rec.id !== record.id;
 		});
 
 		async function delayFunction() {
@@ -95,6 +95,9 @@ function useRequestDelay(delayTime = 1000, initialData = []) {
 		console.log();
 		const originalRecord = [...data];
 		const newRecord = [record, ...data];
+		// const newRecord = [record, ...data]; prints new speaker first; in loop stuck, prints after new speaker,
+		// but before old speakers. Fixed before was able to see why.
+		// const newRecord = [...data, record]; prints new speaker last
 
 		async function delayFunction() {
 			try {
