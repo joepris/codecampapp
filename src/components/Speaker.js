@@ -33,9 +33,28 @@ function Sessions({speaker}) {
 	);
 }
 
-function SpeakerImage({speaker}) {
-	// const { speaker: {id, first, last}} = useContext (speakerContext);
-	const { id, first, last } = speaker;
+function SpeakerImage() {
+	const { speaker: {id, first, last}} = useContext (SpeakerContext);
+	
+	// code above is a shortcut of 
+	// const speakerObject = useContext(SpeakerContext);
+	// const { speaker } = speakerObject;
+	// const { id, first, last } = speaker;
+
+	// ****
+	// code above is a shortcute of
+	// const speaker = speakerObject.speaker;
+
+	// old method
+	// const id = speaker.id;
+	// const first = speaker.first;
+	// const last = speaker.last;
+
+	// another way to get id, first and last
+	// const id = speakerObject.speaker.id;
+	// const first = speakerObject.speaker.first;
+	// const last = speakerObject.speaker.last;
+
 	return (
 		<div className="speaker-img d-flex flex-row justify-content-center align-items-center h-300">
 			<img

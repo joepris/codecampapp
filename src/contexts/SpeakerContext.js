@@ -11,7 +11,7 @@ function SpeakerProvider({
 }) {
 	return (
 		<SpeakerContext.Provider
-			value={speaker, updateRecord, insertRecord, deleteRecord}
+			value={{speaker, updateRecord, insertRecord, deleteRecord}}
 		>
 			{children}
 		</SpeakerContext.Provider>
