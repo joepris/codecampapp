@@ -6,7 +6,7 @@
         // res.status(200).send(JSON.stringify(data,null, 2));
 // }
 // *****/
-import data from '../../../src/SpeakerData';
+// import data from '../../../src/SpeakerData';
 import path from 'path';
 import fs from "fs";
 
@@ -17,7 +17,7 @@ const delay = (ms) => new Promise((resolve) => { setTimeout(resolve, ms)});
 
 export default async function handler(req, res) {
     const jsonFile = path.resolve("./", "db.json");
-    res.status(200).send(JSON.stringify(data,null, 2));
+    // res.status(200).send(JSON.stringify(data,null, 2));
     try {
         const readFileData = await readFile(jsonFile);
         await delay(1000);
