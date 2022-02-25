@@ -2,12 +2,11 @@
 // code below is if we only want to see the data from SpeakerData file
 //*****/
 // import {data} from "../../../../codecampapp/src/SpeakerData";
-
 // export default async function handler(req, res) {
-//     res.status(200).send(JSON.stringify(data,null, 2));
+        // res.status(200).send(JSON.stringify(data,null, 2));
 // }
-//*****/
-
+// *****/
+import data from '../../../src/SpeakerData';
 import path from 'path';
 import fs from "fs";
 
@@ -18,10 +17,12 @@ const delay = (ms) => new Promise((resolve) => { setTimeout(resolve, ms)});
 
 export default async function handler(req, res) {
     const jsonFile = path.resolve("./", "db.json");
+    res.status(200).send(JSON.stringify(data,null, 2));
     try {
         const readFileData = await readFile(jsonFile);
         await delay(1000);
         const speakers = JSON.parse(readFileData).speakers;
+        // ! <- this was important for some reason
         if (!speakers){
             res.status(404).send("Error: Request failed (error code: 404)");
         }  else{
@@ -29,8 +30,8 @@ export default async function handler(req, res) {
             res.status(200).send(JSON.stringify(speakers, null, 2));
             console.log("GET /api/speakers status: 200")
         }
-    }   catch(e) {
-        console.log( "api/speakers error", e );
+    }   catch(e) { 
+        console.log("/api/speakers error", e );
         res.status(404).send("File not found");
     }
 }

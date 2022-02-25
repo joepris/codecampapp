@@ -24,12 +24,13 @@ function useRequestRest() {
 		async function delayFunc() {
 			try {
 				const result = await axios.get(restURL);
-				setRequestStatus(REQUEST_STATUS.SUCCESS);
 				console.log(result);
-				// setData(result.data);
+				setRequestStatus(REQUEST_STATUS.SUCCESS);
+				setData(result.data);
 			} catch (e) {
-				setRequestStatus(REQUEST_STATUS.FAILURE),
-				setError(e)
+				setRequestStatus(REQUEST_STATUS.FAILURE);
+				setError(e);
+				console.log(e);
 			}
 		}
 		delayFunc();
