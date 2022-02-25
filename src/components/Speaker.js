@@ -34,6 +34,21 @@ function Sessions() {
 		</div>
 	);
 }
+//this is for new speakers with no images,
+function ImageWithFallback({src, ...props}) {
+	// this will indicate if there is an error
+	const [error, setError] = useState(false);
+	const [imgSrc, setImgSrc] = useState(src);
+	// for now let return a standard image tag
+	// errors when no image is found and returns dummy image
+	function onError(){
+		if (!error) {
+			setImgSrc("images/speakers-99999.jpg");
+			setError(true);
+		}
+	}
+	return <img src = {imgSrc} {...props} onError = {onError}/>
+}
 
 function SpeakerImage() {
 	const { speaker: {id, first, last}} = useContext (SpeakerContext);
@@ -59,7 +74,8 @@ function SpeakerImage() {
 
 	return (
 		<div className="speaker-img d-flex flex-row justify-content-center align-items-center h-300">
-			<img
+			{/* chagne img to ImageWithFallback as it is for the new speakers*/}
+			<ImageWithFallback
 				className="contain-fit"
 				src={`/images/speaker-${id}.jpg`}
 				width="300"
@@ -105,7 +121,7 @@ function SpeakerFavorite() {
 						<span className="fas fa-circle-notch fa-spin"></span> What is that??
 						--{">   "}
 						<div className="speaker-img fas fa-spin">
-							<img
+							<ImageWithFallback
 								className="contain-fit"
 								src={`/images/speaker-${id}.jpg`}
 								width="20"
