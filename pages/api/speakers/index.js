@@ -22,7 +22,7 @@ export default async function handler(req, res) {
         const readFileData = await readFile(jsonFile);
         await delay(1000);
         const speakers = JSON.parse(readFileData).speakers;
-        // ! <- this was important for some reason
+        // ! <- this was important for some reason / it means not
         if (!speakers){
             res.status(404).send("Error: Request failed (error code: 404)");
         }  else{
