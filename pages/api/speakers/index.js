@@ -17,11 +17,8 @@ const delay = (ms) => new Promise((resolve) => { setTimeout(resolve, ms)});
 
 export default async function handler(req, res) {
     const jsonFile = path.resolve("./", "db.json");
-<<<<<<< HEAD
     // res.status(200).send(JSON.stringify(data,null, 2));
-=======
-    // res.status(200).send(JSON.stringify(data,null, 2)); 
->>>>>>> origin/notworkingcontext
+
     try {
         const readFileData = await readFile(jsonFile);
         await delay(1000);
