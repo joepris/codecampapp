@@ -1,8 +1,10 @@
 import { useState } from "react";
-
-function SpeakerAdd ({eventYear, insertRecord}){
+import withAuth from "./withAuth";
+function SpeakerAdd ({eventYear, insertRecord, loggedInUser}){
     // const addId = useState("99999");
     // const addIdSession = useState("88888");
+    if (!loggedInUser || loggedInUser.length === 0 ) return null;
+
     return (
         <a href="#" className="addSes">
 
@@ -33,4 +35,4 @@ function SpeakerAdd ({eventYear, insertRecord}){
         </a>
     )
 }
-export default SpeakerAdd;
+export default withAuth(SpeakerAdd);

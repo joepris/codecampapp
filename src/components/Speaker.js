@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { themeContext } from "../contexts/ThemeContext";
 import { useContext } from "react";
+//react memo is a higher order component that makes sure that it only makes sure that a certain prop renders
+//and not all of the props when updating
+import { memo } from "react";
 import { SpeakerFilterContext } from "../contexts/SpeakerFilterContext";
 import { SpeakerProvider, SpeakerContext } from "../contexts/SpeakerContext";
 import SpeakerDelete from "./SpeakerDelete";
@@ -161,9 +164,12 @@ function SpeakerDemographics({speaker, updateRecord}) {
 		</div>
 	);
 }
-function Speaker({ speaker, updateRecord, insertRecord, deleteRecord }) {
+//react memo is wrapped in the whole function to make sure that only the updated speaker card will render and not all
+const Speaker = (function Speaker({ speaker, updateRecord, insertRecord, deleteRecord }) {
 	const { id, first, last, sessions } = speaker;
 	const { showSessions } = useContext(SpeakerFilterContext);
+	//test to see what makes it over render
+	console.log(`${speaker.id} ${speaker.first} ${speaker.last}`);
 	// const { Theme } = useContext(themeContext);
 	return (
 		<SpeakerProvider
@@ -185,6 +191,13 @@ function Speaker({ speaker, updateRecord, insertRecord, deleteRecord }) {
 			</div>
 		</SpeakerProvider>
 	);
-}
+});
+// }, areEqualSpeakers); //added the function to make it a second parameter to memo call
+
+//easier solution to tell a react component when it needs to rerender
+//it is to pass a function to memo to take the previous props and the next props as parameters
+// function areEqualSpeakers ({prevProps,nextProps}) {
+// 	return(prevProps.speaker.favorite === nextProps.speaker.favorite);
+// }
 
 export default Speaker;
