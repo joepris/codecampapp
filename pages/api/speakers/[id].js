@@ -40,11 +40,20 @@ async function putMethod() {
         const readFileData = await readFile(jsonFile);
         await delay(1000);
         const speakers = JSON.parse(readFileData).speakers;
+        const sortedSpeakers = speakers.sort(function(a, b) {
+            if (a.last < b.last) {
+              return -1;
+            }
+            if (a.last > b.last) {
+              return 1;
+            }
+            return 0;
+          });
         if (!speakers){
             res.status(404).send("Error: Request failed (error code: 404)");
         }   else{
             //this is to find that one record that needs updating and update it.
-            const newSpeakersArray = speakers.map(function(rec) {
+            const newSpeakersArray = sortedSpeakers.map(function(rec) {
                 return rec.id == id ? recordFromBody : rec;
             })
             //using fs writeFile, we write the new updated speakers array back

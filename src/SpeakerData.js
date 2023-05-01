@@ -1087,7 +1087,7 @@ export const data = [
 		first: "Joe Pris",
 		last: "Calpito",
 		company: "Student",
-		bio: "Joe is a course shifter learning about programming from his siblings.",
+		bio: "Joe is a course shifter who finished his Software Development Post-Diploma in Bow Valley College.",
 		twitterHandle: "tweettweet",
 		favorite: true,
 		sessions: [

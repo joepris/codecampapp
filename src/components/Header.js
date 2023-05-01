@@ -9,7 +9,7 @@ function Header({loggedInUser, setLoggedInUser}) {
 function LoggedIn ({loggedInUser, setLoggedInUser}){
 	return(
 		<div>
-			<span>Logged in as {loggedInUser}</span>
+			<span>Logged in as {loggedInUser}  </span>
 			<button className="btn btn-secondary"
 			onClick={()=>{
 				setLoggedInUser("");
@@ -22,7 +22,7 @@ function LoggedIn ({loggedInUser, setLoggedInUser}){
 
 function NotLoggedIn ({loggedInUser, setLoggedInUser}) {
 	return(
-		<button className="btn-secondary"
+		<button className="btn btn-secondary"
 		onClick={(e)=>{
 			e.preventDefault();
 			const username = window.prompt("enter login name:", "");
